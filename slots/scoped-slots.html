@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slots: scoped slots</title>
+</head>
+
+<body>
+  <div id="app">
+    <user-card v-slot="{ user }">
+      Yes! {{ user.firstname }} is {{ user.status }}
+    </user-card>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('user-card', {
+      template: `
+        <div>
+          <slot v-bind:user="user">{{ user.firstname }} {{ user.lastname }} is {{ user.status }}</slot>
+        </div>`
+      ,
+      data() {
+        return {
+          user: {
+            firstname: 'Jane',
+            lastname: 'Doe',
+            status: 'connected'
+          }
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slots: example</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #edf2f7;
+      padding: 1rem;
+    }
+
+    .list-group {
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      list-style: none;
+      padding: 0.75rem 0;
+      max-width: 350px;
+      margin: 0 auto 2rem;
+    }
+
+    .list-item {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .user-card {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .user-avatar,
+    .post-owner-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+
+    .user-name,
+    .post-owner-name {
+      font-size: 0.875rem;
+    }
+
+    .user-email {
+      font-size: 0.75rem;
+      color: #718096;
+    }
+
+    .post-owner {
+      display: flex;
+      align-items: center;
+    }
+
+    .post-image {
+      margin-top: 0.5rem;
+    }
+
+    .post-image img {
+      max-width: 100%;
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .post-tag {
+      background-color: #81e6d9;
+      font-size: 0.625rem;
+      color: #285e61;
+      padding: 0.25rem 0.5rem;
+      margin-right: 0.25rem;
+      margin-top: 0.75rem;
+      border-radius: 0.25rem;
+    }
+
+    .post-description {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #f4f4f4;
+      padding-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+
+    <div id="app">
+      <list-group :url="usersUrl" v-slot="{item}">
+        <div class="user-card">
+          <img :src="item.avatar" class="user-avatar">
+          <div class="user-info">
+            <p class="user-name">{{ item.first_name }} {{ item.last_name }}</p>
+            <p class="user-email">{{ item.email }}</p>
+          </div>
+        </div>
+      </list-group>
+      <!---->
+      <list-group :url="postsUrl" v-slot="{item}">
+        <div class="post">
+          <div class="post-owner">
+            <img :src="item.owner.image" alt="" class="post-owner-avatar">
+            <p class="post-owner-name">{{ item.owner.firstName }} {{ item.owner.lastName }}</p>
+          </div>
+          <div class="post-image">
+            <img :src="item.image" alt="">
+          </div>
+          <div class="post-tags">
+            <div v-for="tag in item.tags" class="post-tag">#{{ tag }}</div>
+          </div>
+          <p class="post-description">{{ item.message }}</p>
+        </div>
+      </list-group>
+    </div>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('list-group', {
+      props: ['url'],
+      template: `
+        <ul class="list-group">
+          <li v-for="item in items" class="list-item">
+            <slot :item="item"></slot>
+          </li>
+        </ul>
+      `,
+      data() {
+        return {
+          items: []
+        }
+      },
+      created() {
+        fetch(this.url)
+          .then(res => res.json())
+          .then(res => {
+            this.items = res.data || res
+          })
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          usersUrl: 'https://reqres.in/api/users?per_page=10',
+          postsUrl: 'https://n161.tech/api/dummyapi/post'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

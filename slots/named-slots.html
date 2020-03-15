@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slots: named slots</title>
+  <style>
+    * {
+      margin: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      background-color: #edf2f7;
+      padding: 1rem;
+    }
+
+    .modal {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 1rem 0.875rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .modal-header button {
+      color: #a0aec0;
+      background-color: transparent;
+      padding: 0;
+      border: none;
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
+    }
+
+    .modal-header svg {
+      fill: currentColor;
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .modal-body {
+      padding: 0.5rem 0 1rem;
+      text-align: center;
+    }
+
+    .modal-title {
+      color: #4a5568;
+      margin-top: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .modal-content {
+      color: #a0aec0;
+      margin-top: 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    .modal-footer {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .modal-footer button {
+      font-family: sans-serif;
+      background-color: #56a9f4;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      font-weight: bold;
+      letter-spacing: 0.025em;
+      border: none;
+      display: inline-block;
+      width: 100px;
+      border-radius: .5rem;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <my-modal>
+      <template #title>
+        Payment successful!
+      </template>
+      <template #content>
+        Thank you for shopping with us! We are lucky to have customers like you so your order will be as soon as possible in your door ❤️
+      </template>
+      <template #cta>
+        Done
+      </template>
+    </my-modal>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('my-modal', {
+      template: `
+        <div class="modal">
+          <div class="modal-header">
+            <button>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM11.4 10l2.83-2.83-1.41-1.41L10 8.59 7.17 5.76 5.76 7.17 8.59 10l-2.83 2.83 1.41 1.41L10 11.41l2.83 2.83 1.41-1.41L11.41 10z"/></svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3 class="modal-title"><slot name="title"></slot></h3>
+            <p class="modal-content"><slot name="content"></slot></p>
+          </div>
+          <div class="modal-footer">
+            <button><slot name="cta"></slot></button>
+          </div>
+        </div>
+      `
+    })
+
+    new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+
+</html>
