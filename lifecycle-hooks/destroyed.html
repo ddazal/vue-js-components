@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle hooks: destroyed</title>
+  <style>
+    #app {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .modal {
+      position: fixed;
+      background-color: #ffffff;
+      width: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      padding: 0.5rem 2rem;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <modal v-if="show" @close="show = false"></modal>
+    <p>Created hook is used to add styles to the DOM when modal component is, well, created. The beforeDestroy hook is used for delete them and the destroyed hook is used to remove the event listener</p>
+    <p>Here's a little text to overflow</p>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum aliquam nam nisi molestiae earum itaque cumque. Natus molestiae totam nostrum deleniti harum temporibus voluptatem nesciunt illo illum ea omnis nemo quisquam, suscipit corrupti nulla eos dolore hic quae deserunt, dicta tempora ex possimus commodi quam. Repellendus adipisci sint aliquam, porro laudantium quas consectetur, ipsum repellat, vitae impedit soluta velit sapiente maiores. Voluptates esse minus commodi officia autem id animi? Atque minima ipsa corporis, neque reprehenderit quo? Veniam provident aspernatur quidem ad placeat nulla ipsam ipsum maiores neque, dolores, doloremque est animi recusandae id vero, dicta voluptatum? Eos rem soluta alias excepturi, asperiores corrupti consequuntur cupiditate est voluptatum, quae sequi dicta illum quibusdam amet assumenda eveniet laudantium unde repudiandae inventore eaque ullam fuga consectetur obcaecati qui. Consequuntur, quam sapiente ullam ipsum in minima numquam veritatis perspiciatis a quaerat tempore iste animi harum eligendi fugiat delectus tenetur nulla voluptatem repudiandae. Quis commodi deleniti ullam quo officia ratione. Possimus incidunt harum beatae a laudantium pariatur assumenda labore. Laboriosam optio animi laudantium quaerat! A adipisci deserunt reiciendis neque sequi praesentium aliquam odio ratione culpa dolorem, recusandae error quas ipsum sunt libero excepturi omnis magni, laborum quis ex laboriosam unde voluptate sint? Voluptas aut pariatur tempora blanditiis nemo architecto mollitia, deleniti impedit maxime rem, sed modi unde est ipsum, autem commodi facilis sit. Iste tempore sequi, error nulla molestiae praesentium quis neque nisi fuga commodi cupiditate ullam, deserunt rem dolorem suscipit atque? Quisquam vero recusandae culpa magni! Doloremque esse modi quibusdam dolores accusamus tempora dolor amet vitae, nulla repudiandae laborum quis consequatur obcaecati assumenda maiores omnis voluptatum aut rerum impedit optio accusantium fuga, adipisci ea! Odio, perspiciatis? Asperiores vel eius accusamus natus, qui blanditiis itaque ipsa mollitia a similique perspiciatis quo quia nisi illum, possimus reiciendis numquam repellendus! Veniam et perferendis sed neque dignissimos. Iure.</p>
+    <button @click="show = true">Donate</button>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('modal', {
+      template: `
+        <div class="modal" @click="$emit('close')">
+          <p>Thanks for your donation</p>
+        </div>
+      `,
+      methods: {
+        handleScroll() {
+          console.log('SCROLL')
+        }
+      },
+      created() {
+        document.body.style.background = 'rgba(0, 0, 0, 0.7)'
+        window.addEventListener('scroll', this.handleScroll)
+      },
+      beforeDestroy() {
+        document.body.style.background = 'transparent'
+      },
+      destroyed() {
+        window.removeEventListener('scroll', this.handleScroll)
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data: {
+        show: false
+      }
+    })
+  </script>
+</body>
+
+</html>

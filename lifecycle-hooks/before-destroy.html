@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle hooks: beforeDestroy</title>
+  <style>
+    #app {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .modal {
+      position: fixed;
+      background-color: #ffffff;
+      width: 300px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      padding: 0.5rem 2rem;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <modal v-if="show" @close="show = false"></modal>
+    <p>Created hook is used to add styles to the DOM when modal component is, well, created. The beforeDestroy hook is used for delete them.</p>
+    <p>Here's a little text to overflow</p>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum aperiam nihil minus adipisci itaque dignissimos ducimus aliquam cumque. Fuga quibusdam libero, quisquam magnam consequuntur deserunt cum expedita, maxime rem ad excepturi repellat a illo labore iste doloremque possimus pariatur sapiente alias mollitia incidunt reiciendis explicabo. Dignissimos, eos, vel ab facilis quo voluptas repellendus debitis impedit in veritatis quae, nobis labore repudiandae cupiditate deserunt quas sit doloribus accusantium ea fugit laborum nihil! Cumque magnam recusandae unde eos tenetur dolorem rem atque incidunt quod. Ut esse accusantium aut, minima voluptatum dolor, architecto nostrum labore eius cupiditate iste in, aspernatur ea eaque voluptatem laboriosam quaerat. Ipsum ab quis minus possimus velit ea expedita. Fugiat minima delectus tempore laudantium magnam nam reprehenderit obcaecati corporis libero? Eius, quia recusandae tempore ullam qui libero natus assumenda mollitia atque dolorem vitae aliquam delectus nam neque non placeat ipsam expedita! Minus, quia nostrum quis laborum neque quas eius quidem expedita. Eos alias facilis error. Excepturi voluptatem autem voluptatum repellendus amet quidem ex! Error a quia fugit, impedit perspiciatis in placeat sunt quam eveniet ad architecto, nisi harum minima odit voluptatem inventore. Enim maiores, numquam, voluptatibus eum facere aliquid consequuntur placeat modi quasi porro nesciunt cumque omnis adipisci et temporibus provident magnam culpa dolore soluta deserunt minus quos inventore? Rerum eligendi magni quaerat consectetur! Cum, molestiae voluptate? Quam quo cumque dolorem ullam molestias! Dolores, dolore! Dicta atque deserunt animi numquam veritatis cupiditate esse tempore quidem perspiciatis, molestiae explicabo, fugit necessitatibus ratione eveniet possimus modi nesciunt, provident laudantium! Iure culpa eveniet rerum quibusdam doloribus dignissimos error praesentium, fugiat amet quas tempore. Laudantium reiciendis quos natus fuga illum praesentium molestiae deserunt amet ducimus quas deleniti delectus odit sapiente placeat culpa, quibusdam necessitatibus mollitia non facilis nihil rerum dolor totam itaque! Ratione, sed sunt. Asperiores facere voluptates impedit minus deleniti hic delectus.</p>
+    <button @click="show = true">Donate</button>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('modal', {
+      template: `
+        <div class="modal" @click="$emit('close')">
+          <p>Thanks for your donation</p>
+        </div>
+      `,
+      created() {
+        document.body.style.overflow = 'hidden'
+        document.body.style.background = 'rgba(0, 0, 0, 0.7)'
+      },
+      beforeDestroy() {
+        document.body.style.overflow = null
+        document.body.style.background = 'transparent'
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data: {
+        show: false
+      }
+    })
+  </script>
+</body>
+
+</html>

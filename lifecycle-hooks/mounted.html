@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle hooks: mounted</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>Open the console. Note that the DOM renders before the alert. Reload if needed.</p>
+    <pre>{{ $data }}</pre>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        hook: 'mounted'
+      },
+      mounted() {
+        console.log(this.msg)
+        console.log(this.$el)
+        alert('mounted')
+      }
+    })
+  </script>
+</body>
+
+</html>

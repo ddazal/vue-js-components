@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle hooks: beforeUpdate</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>Open the console. Note the offset between the log and the counter value</p>
+    <p ref="count">{{ counter }}</p>
+    <pre>{{ $data }}</pre>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        hook: 'beforeUpdate',
+        counter: 0
+      },
+      mounted() {
+        setInterval(() => {
+          this.counter++
+        }, 1000)
+      },
+      beforeUpdate() {
+        console.log(this.counter)
+        console.log(this.$refs.count.textContent)
+      }
+    })
+  </script>
+</body>
+
+</html>
