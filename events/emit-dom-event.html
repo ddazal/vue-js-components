@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events: emit DOM event</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #edf2f7;
+    }
+
+    .mouse-tracker {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #cacaca;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p>Move the mouse inside the box</p>
+    <mouse-tracker :pos="pos" @track="updatePosition"></mouse-tracker>
+    <pre>{{ pos }}</pre>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('MouseTracker', {
+      props: {
+        pos: Object,
+      },
+      template: `<div class="mouse-tracker" @mousemove="track($event)"></div>`,
+      methods: {
+        track(e) {
+          this.$emit('track', e)
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          pos: { x: 0, y: 0 },
+        }
+      },
+      methods: {
+        updatePosition(event) {
+          this.pos.x = event.clientX
+          this.pos.y = event.clientY
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

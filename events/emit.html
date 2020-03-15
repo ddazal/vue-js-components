@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events: emit</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    button {
+      font-size: 4rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <counter :count="count" @increment="incrementCount" />
+    </counter>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    const Counter = {
+      props: {
+        count: Number
+      },
+      template: `<button @click="increment">{{ count }}</button>`,
+      methods: {
+        increment() {
+          this.$emit('increment')
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: { Counter },
+      data() {
+        return {
+          count: 4
+        }
+      },
+      methods: {
+        incrementCount() {
+          this.count += 1
+        }
+      }
+    })
+  </script>
+</body>
+</html>
