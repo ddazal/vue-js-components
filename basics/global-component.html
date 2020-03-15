@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basics: global component</title>
+</head>
+<body>
+  <div id="app">
+    <welcome></welcome>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('welcome', {
+      template: '<h1>Welcome</h1>'
+    })
+    
+    new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>

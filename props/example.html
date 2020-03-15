@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Props: example</title>
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: sans-serif;
+      background-color: #edf2f7;
+    }
+
+    .users-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .user-card {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      width: 100px;
+      text-align: center;
+      background-color: #ffffff;
+      padding: 0.5rem;
+      margin: 0 0.5rem 0.5rem 0;
+      border-radius: 0.25rem;
+    }
+
+    .user-avatar {
+      width: 100px;
+      height: 100px;
+    }
+
+    .user-name {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.025em;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="users-list">
+      <user-card v-for="user in users" :user="user" />
+    </div>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('user-card', {
+      props: {
+        user: {
+          type: String,
+          required: true
+        }
+      },
+      template: `
+        <div class="user-card">
+          <img class="user-avatar" :src="userAvatar">
+          <p class="user-name">{{ user }}</p>
+        </div>
+      `,
+      computed: {
+        userAvatar() {
+          return `https://robohash.org/${this.user}`
+        }
+      }
+    })
+
+    new Vue({
+      el: "#app",
+      data: {
+        users: ['Sara', 'Ivan', 'Diana', 'Carlos', 'David']
+      }
+    })
+  </script>
+</body>
+</html>

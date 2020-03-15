@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Props: basics</title>
+</head>
+<body>
+  <div id="app">
+    <welcome :name="name" /></welcome>
+  </div>
+  <script src="../vue-2.6.11.js"></script>
+  <script>
+    Vue.component('welcome', {
+      props: ['name'],
+      template: '<h1>Welcome, {{ name }}</h1>'
+    })
+
+    new Vue({
+      el: '#app',
+      data: {
+        name: 'babies'
+      }
+    })
+  </script>
+</body>
+</html>

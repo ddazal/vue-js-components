@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js components meetup resources</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Vue.js components examples</h1>
+    <section v-for="section in content">
+      <h3>{{ section.section }}</h3>
+      <ul>
+        <li v-for="page in section.pages">
+          <a :href="page.href">{{page.name}}</a>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <script src="./vue-2.6.11.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        content: [
+          {
+            section: 'Basics',
+            pages: [
+              {
+                name: 'Global component',
+                href: '/basics/global-component.html'
+              },
+              {
+                name: 'Local component',
+                href: '/basics/local-component.html'
+              }
+            ]
+          },
+          {
+            section: 'Props',
+            pages: [
+              {
+                name: 'Basics',
+                href: '/props/basics.html'
+              },
+              {
+                name: 'Validation',
+                href: '/props/validation.html'
+              },
+              {
+                name: 'Example',
+                href: '/props/example.html'
+              }
+            ]
+          }
+        ]
+      }
+    })
+  </script>
+</body>
+
+</html>
