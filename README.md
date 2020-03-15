@@ -1,2 +1,11 @@
 # vue-js-components
-Recurdos del meetup Vue.js - Componentes. Bogotá. Febrero 10, 2020
+
+## About 
+
+Fecha: 10-02-2020
+Speaker: David Daza
+
+## Recursos
+
+- [Slides](https://slides.com/ddazal/vue-js-components)
+- [Codepen](https://codepen.io/collection/XvWyPo)
